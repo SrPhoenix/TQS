@@ -23,17 +23,21 @@ public class AppTest
      */
     private TqsStack<Integer> s ;
 
+    private BoundedStack<Integer> bs ;
+
     @BeforeEach 
     public void initiate()
     {
 
         this.s = new TqsStack<Integer>();
+        this.bs = new BoundedStack<Integer>(4);
     }
     @AfterEach 
     public void clear()
     {
 
-        s = null;
+        this.s = null;
+        this.bs = null;
     }
 
     //a)
@@ -117,7 +121,7 @@ public class AppTest
             s.pop();
         }
         assertEquals(  true , s.isEmpty());
-        assertThrows(NoSuchElementException.class, () -> s.pop());
+        assertThrows(NoSuchElementException.class, () -> {s.pop();});
     }
 
     //h)
@@ -128,17 +132,18 @@ public class AppTest
             s.pop();
         }
         assertEquals(  true , s.isEmpty());
-        assertThrows(NoSuchElementException.class, () -> s.peek());
+        assertThrows(NoSuchElementException.class, () -> {s.peek(); });
     }
 
     //i)
     @Test
     @DisplayName("bounded stacks only:pushing onto a full stack does throw an IllegalStateException")
     public void full_stack_throw_IllegalStateException(){
-        if (s instanceof BoundedStack){
-            assertEquals(  true , s.isFull());
-            assertThrows(IllegalStateException.class, () -> s.push(10));
-        }
+        assertEquals(  true , bs.isEmpty());
+        while ( ! bs.isFull() )
+            bs.push(1);
+        assertEquals(  true , bs.isFull());
+        assertThrows(IllegalStateException.class, () -> {bs.push(10);});
     }
 
 }
