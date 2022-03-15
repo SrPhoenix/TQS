@@ -61,5 +61,23 @@ public class SetOfNaturalsTest {
 
     }
 
+    @Test
+    public void testNoDuplicates() {
+        // must fail with exception
+        assertThrows(IllegalArgumentException.class, () -> setB.add(10));
+    }
+
+    @Test
+    public void testParcialIntersect() {
+        // must fail with exception
+        assertTrue(setB.intersects(setC));
+    }
+
+    @Test
+    public void testFullIntersect() {
+        // must fail with exception
+        assertTrue(setB.intersects(setB));
+    }
+
 
 }
