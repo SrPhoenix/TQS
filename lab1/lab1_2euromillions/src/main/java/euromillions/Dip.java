@@ -17,6 +17,11 @@ public class Dip {
     private SetOfNaturals numbers;
     private SetOfNaturals stars;
 
+    private static int num_numbers = 5;
+    private static int num_stars = 2;
+    private static int max_number = 50;
+    private static int max_star = 12;
+
     public Dip() {
         numbers = new SetOfNaturals();
         stars = new SetOfNaturals();
@@ -25,16 +30,16 @@ public class Dip {
     public Dip(int[] arrayOfNumbers, int[] arrayOfStars) {
         this();
 
-        if (5 == arrayOfNumbers.length && 2 == arrayOfStars.length) {
-            for (int i = 0; i<5; i++){
-                if (1<= arrayOfNumbers[i] && arrayOfNumbers[i]<=50)
+        if (num_numbers == arrayOfNumbers.length && num_stars == arrayOfStars.length) {
+            for (int i = 0; i<num_numbers; i++){
+                if (1<= arrayOfNumbers[i] && arrayOfNumbers[i]<=max_number)
                     numbers.add(arrayOfNumbers[i]);
                 else {
                     throw new IllegalArgumentException("wrong number of elements in numbers/stars");
                 }
             }
-            for (int i = 0; i<2; i++){
-                if (1<= arrayOfStars[i] && arrayOfStars[i]<=12)
+            for (int i = 0; i<num_stars; i++){
+                if (1<= arrayOfStars[i] && arrayOfStars[i]<=max_star)
                     stars.add(arrayOfStars[i]);
                 else 
                         throw new IllegalArgumentException("wrong number of elements in numbers/stars");
@@ -58,15 +63,15 @@ public class Dip {
         Random generator = new Random();
 
         Dip randomDip = new Dip();
-        for (int i = 0; i < 5; ) {
-            int candidate = generator.nextInt(49) + 1;
+        for (int i = 0; i < num_numbers; ) {
+            int candidate = generator.nextInt(max_number - 1) + 1;
             if (!randomDip.getNumbersColl().contains(candidate)) {
                 randomDip.getNumbersColl().add(candidate);
                 i++;
             }
         }
-        for (int i = 0; i < 2; ) {
-            int candidate = generator.nextInt(11) + 1;
+        for (int i = 0; i < num_stars; ) {
+            int candidate = generator.nextInt(max_star - 1) + 1;
             if (!randomDip.getStarsColl().contains(candidate)) {
                 randomDip.getStarsColl().add(candidate);
                 i++;
