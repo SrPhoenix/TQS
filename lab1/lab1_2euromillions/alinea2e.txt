@@ -1,0 +1,10 @@
+    CuponEuromillions(40%) - method format() (0%)
+    Dip(90%) - methods hashCode() (0%), equals(Object) (75%)
+    EuromillionsDraw(90%) - method generateRandomDraw() (0%), getDrawResults() (0%)
+    DemoMain(0%) - method main(0%), DemoMain() (0%)
+    SetOfNaturals(87%) - method hashCode()(0%), equals(Object)(76%), add(int[])(95%)
+
+Classes less coverage:  DemoMain and CuponEuromillions
+
+Are all possible decision branches being covered?
+No, total 82% neither package have all branches covered
