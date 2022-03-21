@@ -1,5 +1,7 @@
 package tqs.lab2;
 
+import org.junit.After;
+
 //import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -46,11 +48,10 @@ public class StocksPortfolioTest
         verify(mockedMarket).lookUpPrice("Apple");
         verify(mockedMarket).lookUpPrice("Android");
 
-
     } 
 
     @Test
-    public void getTotalValueKai(){
+    public void getTotalValue2(){
         when(mockedMarket.lookUpPrice("Apple")).thenReturn(240.50);
         when(mockedMarket.lookUpPrice("Android")).thenReturn(200.15);
 
@@ -66,4 +67,8 @@ public class StocksPortfolioTest
 
 
     } 
+    @After
+    public void validate() {
+        validateMockitoUsage();
+    }
 }
