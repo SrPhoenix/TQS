@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Covid Api</title> 
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+    <h1>Covid Api</h1>
+    <form th:action="@{/data}" method="POST" th:object="${data}" action="#">
+      <h2>Parameters (Opcional)</h2>
+      <label for="date">Date:</label>
+        <p><input type="date" th:field="*{date}" th:min="2020-01-01"></p>
+        <label for="country">Country(iso):</label>
+        <p>
+          <select th:field="*{country}" >
+            <option th:each="c : ${countries}" th:value="${c}" th:text="${c}"></option>
+          </select>
+        </p>
+      <label for="region_name">region name:</label>
+      <p><input type="text" th:field="*{region_name}" ></p>
+      <label for="city_name">city name:</label>
+      <p><input type="text" th:field="*{city_name}" ></p>
+        <button type="submit">Submit</button>
+    </form>
+  </body>
+</html>
+<!-- <label for="date">Date:</label>
+      <p><input type="date" th:field="*{data.date}" ></p>
+     <label for="country">Country(iso):</label>
+      <p>
+      <select th:field="*{data.country}" >
+          <option th:each="c : ${countries}" th:value="${c}" th:text="${c}"></option>
+      </select></p>
+      <label for="region_name">region name:</label>
+      <p><input type="text" th:field="*{data.region_name}" ></p>
+      <label for="city_name">city name:</label>
+      <p><input type="text" th:field="*{data.city_name}" ></p> -->
