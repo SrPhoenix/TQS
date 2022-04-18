@@ -20,7 +20,7 @@ import io.github.bonigarcia.seljup.SeleniumJupiter;
 
 @ExtendWith(SeleniumJupiter.class)
 public class lab4_2_b {
-  //private WebDriver driver;
+  private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
@@ -29,13 +29,13 @@ public class lab4_2_b {
   public void setUp() throws Exception {
     System.setProperty("webdriver.gecko.driver", "/usr/local/bin/geckodriver");
 
-    //driver = new FirefoxDriver();
+    driver = new FirefoxDriver();
     baseUrl = "https://www.google.com/";
-    //driver.manage().timeouts();//.implicitlyWait(30, TimeUnit.SECONDS);
+    driver.manage().timeouts();//.implicitlyWait(30, TimeUnit.SECONDS);
   }
 
   @Test
-  public void testUntitledTestCase(FirefoxDriver driver) throws Exception {
+  public void testUntitledTestCase() throws Exception {
     driver.get("https://blazedemo.com/");
     driver.findElement(By.xpath("//body")).click();
     driver.findElement(By.name("fromPort")).click();
@@ -66,7 +66,7 @@ public class lab4_2_b {
   }
 
   @AfterEach
-  public void tearDown(FirefoxDriver driver) throws Exception {
+  public void tearDown() throws Exception {
     driver.quit();
     String verificationErrorString = verificationErrors.toString();
     if (!"".equals(verificationErrorString)) {
@@ -74,7 +74,7 @@ public class lab4_2_b {
     }
   }
 
-  private boolean isElementPresent(FirefoxDriver driver, By by) {
+  private boolean isElementPresent(By by) {
     try {
       driver.findElement(by);
       return true;
@@ -83,7 +83,7 @@ public class lab4_2_b {
     }
   }
 
-  private boolean isAlertPresent(FirefoxDriver driver) {
+  private boolean isAlertPresent() {
     try {
       driver.switchTo().alert();
       return true;
@@ -92,7 +92,7 @@ public class lab4_2_b {
     }
   }
 
-  private String closeAlertAndGetItsText(FirefoxDriver driver) {
+  private String closeAlertAndGetItsText() {
     try {
       Alert alert = driver.switchTo().alert();
       String alertText = alert.getText();

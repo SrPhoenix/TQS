@@ -17,5 +17,9 @@ References:
 https://stackoverflow.com/questions/44200720/difference-between-mock-mockbean-and-mockito-mock
 https://rieckpil.de/difference-between-mock-and-mockbean-spring-boot-applications/
 
-d)
+d) The objetive of this file is to create a non persistent database (in this case mysql) just to run integrations test which makes the tests faster since it rans on volatile memory.
+
+e) In the C test case, when test the comportment of the API when inserting elements, in the D test we test the search algorithm (findAll) and the E test, with a test entity.
+
+
 

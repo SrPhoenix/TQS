@@ -12,7 +12,6 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.TestPropertySource;
 import tqsdemo.employeemngr.data.Employee;
 import tqsdemo.employeemngr.data.EmployeeRepository;
 
@@ -47,7 +46,7 @@ class E_EmployeeRestControllerTemplateIT {
     @Test
      void whenValidInput_thenCreateEmployee() {
         Employee bob = new Employee("bob", "bob@deti.com");
-        ResponseEntity<Employee> entity = restTemplate.postForEntity("/api/employees", bob, Employee.class);
+        //ResponseEntity<Employee> entity = restTemplate.postForEntity("/api/employees", bob, Employee.class);
 
         List<Employee> found = repository.findAll();
         assertThat(found).extracting(Employee::getName).containsOnly("bob");
