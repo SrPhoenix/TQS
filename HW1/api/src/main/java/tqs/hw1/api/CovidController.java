@@ -1,29 +1,28 @@
 package tqs.hw1.api;
 
-import java.util.concurrent.atomic.AtomicLong;
+
+import org.json.JSONObject;
 
 //import com.google.gson.JsonObject;
 
-import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Locale;
 
 @Controller
 public class CovidController {
     String[] countries = Locale.getISOCountries();
-    HashMap<String, Response> cache = new HashMap<>();
-    OkHttpClient client = new OkHttpClient();
+    private final CovidService service;
+
+
+    public CovidController(CovidService service) {
+        this.service=service;
+    }
 
     
 	@GetMapping("/")
@@ -41,39 +40,27 @@ public class CovidController {
     }
 
     @GetMapping("/data")
-    public String data(Model model) {
-        
-        return "data";
-    }
-
-    @PostMapping("/data")
-    public String submitData(@ModelAttribute("data") CovidData data, Model model) throws IOException {
-        System.out.println("Something");
+    public @ResponseBody JSONObject data(@ModelAttribute("data") CovidData data, Model model) throws IOException {
+        System.out.println("Post data");
         System.out.println(data.getDate());
-        StringBuilder url = new StringBuilder("https://covid-19-statistics.p.rapidapi.com/reports?");
-        if (!data.getDate().equals(""))
-            url.append("date="+data.getDate());
-        else if (!data.getRegion_name().equals(""))
-            url.append("&region_name="+data.getRegion_name());
-        else if (!data.getCountry().equals(""))
-            url.append("&iso="+data.getCountry());
-        else if (!data.getCity_name().equals(""))
-            url.append("&city_name="+data.getCity_name());
-        System.out.println(url);
-        Request request = new Request.Builder()
-            .url(url.toString())
-            .get()
-            .addHeader("X-RapidAPI-Host", "covid-19-statistics.p.rapidapi.com")
-            .addHeader("X-RapidAPI-Key", "54a04285f3msh775e05c8199e3d1p10dee3jsn18132b791694")
-            .build();
-
-        Response response = client.newCall(request).execute();
-        System.out.println(">.< " + response.isSuccessful());
-        JSONObject covidData = new JSONObject(response.body().string());
-        //return data.get("data").toString();
-        model.addAttribute("data", covidData.toString());
-        return "data";
+        
+        JSONObject response = service.getData(data);
+        System.out.println(response);
+        return response;
     }
+
+/*     @PostMapping("/data")
+    public String submitData(@ModelAttribute("data") CovidData data, Model model) throws IOException {
+        System.out.println("Post data");
+        System.out.println(data.getDate());
+        
+        JSONObject response = service.request(data);
+        
+        model.addAttribute("data", response.toString());
+        return "data";
+    } */
+
+    
 
     
     

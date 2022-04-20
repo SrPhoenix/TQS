@@ -1,5 +1,7 @@
 package tqs.hw1.api;
+
 import java.util.Objects;
+
 
 public class CovidData {
     private String country = "";
@@ -64,6 +66,9 @@ public class CovidData {
         return this;
     }
 
+
+
+
     @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -72,12 +77,7 @@ public class CovidData {
             return false;
         }
         CovidData covidData = (CovidData) o;
-        return Objects.equals(country, covidData.country) && Objects.equals(region_name, covidData.region_name) && Objects.equals(city_name, covidData.city_name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(country, region_name, city_name);
+        return Objects.equals(country, covidData.country) && Objects.equals(region_name, covidData.region_name) && Objects.equals(city_name, covidData.city_name) && Objects.equals(date, covidData.date);
     }
 
     @Override
@@ -86,7 +86,13 @@ public class CovidData {
             " country='" + getCountry() + "'" +
             ", region_name='" + getRegion_name() + "'" +
             ", city_name='" + getCity_name() + "'" +
+            ", date='" + getDate() + "'" +
             "}";
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(country, region_name, city_name);
     }
 
 }

@@ -8,7 +8,7 @@ xmlns:th="http://www.thymeleaf.org">
   </head>
   <body>
     <h1>Covid Api</h1>
-    <form th:action="@{/data}" method="POST" th:object="${data}" action="#">
+    <form th:action="@{/data}" method="GET" th:object="${data}" action="#">
       <h2>Parameters (Opcional)</h2>
       <label for="date">Date:</label>
         <p><input type="date" th:field="*{date}" th:min="2020-01-01"></p>
