@@ -18,8 +18,11 @@ public class CovidServiceImp implements CovidService{
 
     public JSONObject getData(CovidData data) throws IOException{
         JSONObject response = cache.get(data);
-        if(response==null)
-            return request(data.getDate(),data.getRegion_name(),data.getCountry(),data.getCity_name());
+        if(response==null){
+            response = request(data.getDate(),data.getRegion_name(),data.getCountry(),data.getCity_name()); 
+            cache.put(data,response);
+            return response;
+        }
         else
             return response;
         
