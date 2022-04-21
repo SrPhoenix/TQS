@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Cache {
-    HashMap<CovidData, JSONObject> cache = new HashMap<>();
-    HashMap<CovidData, Timestamp> ttl = new HashMap<>();
+    private HashMap<CovidData, JSONObject> cache = new HashMap<>();
+    private HashMap<CovidData, Timestamp> ttl = new HashMap<>();
     
 
     public JSONObject get(CovidData data){
