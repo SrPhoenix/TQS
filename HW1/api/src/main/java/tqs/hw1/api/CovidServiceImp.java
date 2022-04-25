@@ -17,18 +17,20 @@ public class CovidServiceImp implements CovidService{
     Cache cache;
 
     public JSONObject getData(CovidData data) throws IOException{
+        System.out.println("getData");
         JSONObject response = cache.get(data);
         if(response==null){
             response = request(data.getDate(),data.getRegion_name(),data.getCountry(),data.getCity_name()); 
             cache.put(data,response);
             return response;
         }
-        else
-            return response;
+        
+        return response;
         
     }
 
     public JSONObject request(String date, String region, String country, String city) throws IOException{
+        System.out.println("Request");        
         StringBuilder url = new StringBuilder("https://covid-19-statistics.p.rapidapi.com/reports?");
         if (!date.equals(""))
             url.append("date="+date);
@@ -47,7 +49,7 @@ public class CovidServiceImp implements CovidService{
             .build();
 
         Response response = client.newCall(request).execute();
-        System.out.println(">.< " + response.isSuccessful());
+        System.out.println("Response is Successful: " + response.isSuccessful());
         return new JSONObject(response.body().string());
     }
 }
