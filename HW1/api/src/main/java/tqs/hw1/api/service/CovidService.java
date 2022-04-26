@@ -25,7 +25,7 @@ public class CovidService {
         logger.debug("getData");
         JSONObject response = cache.get(data);
         if(response==null){
-            logger.debug("Get Data from Api")
+            logger.debug("Get Data from Api");
             response = request(data.getDate(),data.getRegion_name(),data.getCountry(),data.getCity_name()); 
             cache.put(data,response);
             return response;

@@ -1,4 +1,4 @@
-package tqs.hw1.api;
+package tqs.hw1.api.get_data;
 
 
 import org.junit.platform.suite.api.ConfigurationParameter;
@@ -13,8 +13,8 @@ import static io.cucumber.junit.platform.engine.Constants.GLUE_PROPERTY_NAME;
 @IncludeEngines("cucumber")
 @SelectClasspathResource("tqs/hw1/api")
 @ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "pretty")
-@ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "tqs.hw1.api")
-public class RequestTest {
+@ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "tqs.hw1.api.get_data")
+public class Get_dataTest {
     
 }
 // given some values then return data
