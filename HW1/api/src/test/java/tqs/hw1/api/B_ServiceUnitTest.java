@@ -2,7 +2,6 @@ package tqs.hw1.api;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 
@@ -14,8 +13,10 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
+
+import tqs.hw1.api.service.Cache;
+import tqs.hw1.api.service.CovidService;
+import tqs.hw1.api.model.CovidData;
 
 @ExtendWith(MockitoExtension.class)
 public class B_ServiceUnitTest {
@@ -24,7 +25,7 @@ public class B_ServiceUnitTest {
     Cache c;
 
     @InjectMocks
-    CovidServiceImp service;
+    CovidService service;
 
 
     @Test

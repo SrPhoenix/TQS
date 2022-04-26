@@ -1,4 +1,4 @@
-package tqs.hw1.api;
+package tqs.hw1.api.model;
 
 import java.util.Objects;
 

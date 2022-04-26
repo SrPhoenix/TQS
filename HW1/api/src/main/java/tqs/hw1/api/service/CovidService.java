@@ -1,4 +1,4 @@
-package tqs.hw1.api;
+package tqs.hw1.api.service;
 import java.io.IOException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,19 +7,25 @@ import org.springframework.stereotype.Service;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import tqs.hw1.api.model.CovidData;
+
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 
 @Service
-public class CovidServiceImp implements CovidService{
+public class CovidService {
     OkHttpClient client = new OkHttpClient();
+    private static Logger logger = LogManager.getLogger(CovidService.class);
     
     @Autowired
     Cache cache;
 
     public JSONObject getData(CovidData data) throws IOException{
-        System.out.println("getData");
+        logger.debug("getData");
         JSONObject response = cache.get(data);
         if(response==null){
+            logger.debug("Get Data from Api")
             response = request(data.getDate(),data.getRegion_name(),data.getCountry(),data.getCity_name()); 
             cache.put(data,response);
             return response;
@@ -30,7 +36,7 @@ public class CovidServiceImp implements CovidService{
     }
 
     public JSONObject request(String date, String region, String country, String city) throws IOException{
-        System.out.println("Request");        
+        logger.debug("Request Function");        
         StringBuilder url = new StringBuilder("https://covid-19-statistics.p.rapidapi.com/reports?");
         if (!date.equals(""))
             url.append("date="+date);
@@ -40,7 +46,8 @@ public class CovidServiceImp implements CovidService{
             url.append("&iso="+country);
         else if (!city.equals(""))
             url.append("&city_name="+city);
-        System.out.println(url);
+        logger.debug("url: ",url);
+
         Request request = new Request.Builder()
             .url(url.toString())
             .get()
@@ -49,7 +56,7 @@ public class CovidServiceImp implements CovidService{
             .build();
 
         Response response = client.newCall(request).execute();
-        System.out.println("Response is Successful: " + response.isSuccessful());
+        logger.debug("Response is Successful: ", response.isSuccessful());
         return new JSONObject(response.body().string());
     }
 }
