@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: tqs.lab4_1.lab4_4a
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 5.076 s <<< FAILURE! - in tqs.lab4_1.lab4_4a
+testUntitledTestCase{FirefoxDriver}  Time elapsed: 5.058 s  <<< ERROR!
+java.lang.NullPointerException
+	at tqs.lab4_1.lab4_4a.testUntitledTestCase(lab4_4a.java:47)
+

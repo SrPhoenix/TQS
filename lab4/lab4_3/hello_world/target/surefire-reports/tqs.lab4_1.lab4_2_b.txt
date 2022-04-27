@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
-Test set: tqs.lab4_1.mTest
+Test set: tqs.lab4_1.lab4_2_b
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.323 s - in tqs.lab4_1.mTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 12.136 s - in tqs.lab4_1.lab4_2_b
