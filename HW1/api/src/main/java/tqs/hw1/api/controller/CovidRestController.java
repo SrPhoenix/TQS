@@ -11,9 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import tqs.hw1.api.exception.APINotRespondingException;
 import tqs.hw1.api.model.CovidData;
@@ -21,38 +21,31 @@ import tqs.hw1.api.service.CovidService;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.Arrays;
 import java.util.Locale;
 
-@Controller
-public class CovidController {
+@RestController
+public class CovidRestController {
     String[] countries = Locale.getISOCountries();
     private final CovidService service;
-    private static Logger logger = LogManager.getLogger(CovidController.class);
+    private static Logger logger = LogManager.getLogger(CovidRestController.class);
 
 
-    public CovidController(CovidService service) {
+    public CovidRestController(CovidService service) {
         this.service=service;
     }
     
     
-    
-	@GetMapping("/index")
-    public String index(Model model) {
-        logger.debug("index");
-        String[] countries_ = new String[countries.length + 1];
-        int i = 1;
-        countries_[0]= "";
-        for (String c : countries) {
-            countries_[i] = new Locale("en", c).getISO3Country();
-            i++;
-        }
-        logger.debug("countries", Arrays.asList(countries_));
-        model.addAttribute("countries", countries_);
-        model.addAttribute("data", new CovidData());
-        return "index";
-    }
 
+    @GetMapping("/data")
+    public @ResponseBody JSONObject data(@ModelAttribute("data") @RequestBody CovidData data, Model model) throws IOException, URISyntaxException, APINotRespondingException {
+        logger.debug("Post data");
+        //System.out.println(data.getDate());
+        
+        JSONObject response = service.getData(data);
+        logger.debug("response: ",response);
+        //return response.getJSONArray("data").getJSONObject(0).getJSONObject("region").toString();
+        return response;
+    }
 
 /*     @PostMapping("/data")
     public String submitData(@ModelAttribute("data") CovidData data, Model model) throws IOException {

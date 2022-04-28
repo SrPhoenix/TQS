@@ -44,6 +44,7 @@ public class B_ServiceUnitTest {
         assertNotEquals(jsonObject, null);
         assertEquals(service.getData(data), jsonObject);
 
+
     }
 
     @Test
@@ -53,5 +54,6 @@ public class B_ServiceUnitTest {
         assertNotEquals(service.getData(data), null);
 
     }
+
 
 } 

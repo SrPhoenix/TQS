@@ -82,12 +82,18 @@ public class CovidData {
 
     @Override
     public String toString() {
-        return "{" +
-            " country='" + getCountry() + "'" +
-            ", region_name='" + getRegion_name() + "'" +
-            ", city_name='" + getCity_name() + "'" +
-            ", date='" + getDate() + "'" +
-            "}";
+        StringBuilder retVal = new StringBuilder("{");
+
+        if (!date.equals(""))
+            retVal.append(" date='"+getDate()+ "'");
+        else if (!region_name.equals(""))
+            retVal.append(", region_name='"+getRegion_name()+ "'");
+        else if (!country.equals(""))
+            retVal.append(", country='"+getCountry()+ "'");
+        else if (!city_name.equals(""))
+            retVal.append(", city_name='"+getCity_name()+ "'");
+            retVal.append("}");
+        return retVal.toString();
     }
 
     @Override

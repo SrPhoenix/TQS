@@ -1,5 +1,7 @@
 package tqs.hw1.api.service;
 import java.io.IOException;
+import java.net.URISyntaxException;
+
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Service;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import tqs.hw1.api.exception.APINotRespondingException;
 import tqs.hw1.api.model.CovidData;
 
 import org.apache.logging.log4j.Logger;
@@ -21,7 +24,7 @@ public class CovidService {
     @Autowired
     Cache cache;
 
-    public JSONObject getData(CovidData data) throws IOException{
+    public JSONObject getData(CovidData data) throws IOException, URISyntaxException, APINotRespondingException{
         logger.debug("getData");
         JSONObject response = cache.get(data);
         if(response==null){
@@ -35,7 +38,7 @@ public class CovidService {
         
     }
 
-    public JSONObject request(String date, String region, String country, String city) throws IOException{
+    private JSONObject request(String date, String region, String country, String city) throws URISyntaxException, APINotRespondingException , IOException{
         logger.debug("Request Function");        
         StringBuilder url = new StringBuilder("https://covid-19-statistics.p.rapidapi.com/reports?");
         if (!date.equals(""))
@@ -57,6 +60,22 @@ public class CovidService {
 
         Response response = client.newCall(request).execute();
         logger.debug("Response is Successful: ", response.isSuccessful());
-        return new JSONObject(response.body().string());
+        JSONObject result = new JSONObject(response.body().string());
+        if (result.getJSONArray("data").length() > 0)
+            cache.plusHit();
+        else    
+            cache.plusMiss();
+        return result;
+    }
+
+    public int getHit(){
+        return cache.getHit();
+    }
+
+    public int getMiss(){
+        return cache.getMiss();
+    }
+    public int getCountOfRequest(){
+        return cache.getCountOfRequest();
     }
 }
