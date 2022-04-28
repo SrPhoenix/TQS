@@ -15,7 +15,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import tqs.hw1.api.model.CovidData;
+import tqs.hw1.api.model.ModelRequest;
 
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK, classes = ApiApplication.class)
 @AutoConfigureMockMvc
@@ -26,7 +26,7 @@ public class D_ControllerIT {
     
     @Test
      void getDataIT() throws IOException, Exception {
-        CovidData data = new CovidData();
+        ModelRequest data = new ModelRequest();
         data.setCountry("AFG");
 
         mvc.perform(

@@ -1,43 +1,29 @@
 package tqs.hw1.api.controller;
 
 
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
-import org.json.JSONObject;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 //import com.google.gson.JsonObject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import tqs.hw1.api.exception.APINotRespondingException;
-import tqs.hw1.api.model.CovidData;
+import tqs.hw1.api.model.ModelRequest;
 import tqs.hw1.api.service.CovidService;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.Locale;
 
 @Controller
 public class CovidController {
     String[] countries = Locale.getISOCountries();
-    private final CovidService service;
-    private static Logger logger = LogManager.getLogger(CovidController.class);
+    private static final Logger logger = LoggerFactory.getLogger(CovidController.class);
 
 
-    public CovidController(CovidService service) {
-        this.service=service;
-    }
-    
-    
-    
-	@GetMapping("/index")
+	@GetMapping("/")
     public String index(Model model) {
         logger.debug("index");
         String[] countries_ = new String[countries.length + 1];
@@ -49,7 +35,7 @@ public class CovidController {
         }
         logger.debug("countries", Arrays.asList(countries_));
         model.addAttribute("countries", countries_);
-        model.addAttribute("data", new CovidData());
+        model.addAttribute("data", new ModelRequest());
         return "index";
     }
 

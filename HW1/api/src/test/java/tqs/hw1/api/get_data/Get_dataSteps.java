@@ -7,11 +7,11 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import tqs.hw1.api.service.CovidService;
-import tqs.hw1.api.model.CovidData;
+import tqs.hw1.api.model.ModelRequest;
  
 public class Get_dataSteps {
 	private CovidService service = new CovidService();
-	private CovidData data = new CovidData();
+	private ModelRequest data = new ModelRequest();
 
 	@Given("a user that ask information about the country {String}")
 	public void the_country(final String country) throws Throwable {
@@ -21,6 +21,6 @@ public class Get_dataSteps {
  
 	@Then("the user must get that information")
 	public void the_user_must_get_that_information() throws Throwable {
-		assertNotEquals(service.getData(data).getJSONArray("data"),null);
+		assertNotEquals(service.getData(data),null);
 	}
 }

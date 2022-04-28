@@ -3,20 +3,21 @@ import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Set;
 
-import org.json.JSONObject;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import tqs.hw1.api.model.CovidData;
+import tqs.hw1.api.model.ModelRequest;
+import tqs.hw1.api.model.ResponseData;
 
 @Component
 public class Cache {
-    private HashMap<CovidData, JSONObject> cache = new HashMap<>();
-    private HashMap<CovidData, Timestamp> ttl = new HashMap<>();
-    private static Logger logger = LogManager.getLogger(Cache.class);
+    private HashMap<ModelRequest, ResponseData> cache = new HashMap<>();
+    private HashMap<ModelRequest, Timestamp> ttl = new HashMap<>();
+    private static final Logger logger = LoggerFactory.getLogger(Cache.class);
     private int miss;
     private int hit;
     
@@ -27,11 +28,11 @@ public class Cache {
     }
 
     public Cache() {
-        this.timeToLive = 120;
+        this.timeToLive = 180;
     }
 
     
-    public JSONObject get(CovidData data){
+    public ResponseData get(ModelRequest data){
         logger.info("Checking if data {} in cache",data);
         if(ttl.containsKey(data))  {
             logger.info("data is in cache");
@@ -41,29 +42,29 @@ public class Cache {
 
         return null;
     }
-    public void put(CovidData data, JSONObject response){
+    public void put(ModelRequest data, ResponseData response){
         logger.info("Caching up data {} with the response {}",data,response.toString());
         cache.put(data,response);
         ttl.put(data, Timestamp.from(Instant.now()));
     }
 
-    private void deleteDataFromCache(CovidData data) {
+    public void deleteDataFromCache(ModelRequest data) {
         logger.info("Deleting data {} from cache", data);
         cache.remove(data);
         ttl.remove(data);
     }
 
-    private boolean hasExpired(CovidData data) {
+    public boolean hasExpired(ModelRequest data) {
         logger.info("Checking if data {} is expired", data);
         Date mostRecentExpiredDate = new Date(System.currentTimeMillis() - this.timeToLive * 1000);
         return ttl.get(data).before(mostRecentExpiredDate);
     }
 
     @Scheduled(fixedRate = 60 * 1000)
-    private void cleanExpiredCachedData() {
+    public void cleanExpiredCachedData() {
         logger.info("Running scheduled method to clean expired cached data");
 
-        for (CovidData data : cache.keySet()) {
+        for (ModelRequest data : cache.keySet()) {
             logger.info("Deleting expired data: {}", data);
             if (hasExpired(data))
                 deleteDataFromCache(data);
@@ -71,12 +72,19 @@ public class Cache {
 
     }
 
+    public Set<ModelRequest> getCacheKeySet(){
+        return cache.keySet();
+    }
+
     public void plusMiss(){
         miss++;
+        logger.info("Number of missing requests: {}", miss);
     }
 
     public void plusHit(){
         hit++;
+        logger.info("Number of hit requests: {}", hit);
+
     }
 
     public int getHit(){

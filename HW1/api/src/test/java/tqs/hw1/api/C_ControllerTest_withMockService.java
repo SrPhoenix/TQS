@@ -18,7 +18,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import tqs.hw1.api.service.CovidService;
-import tqs.hw1.api.model.CovidData;
+import tqs.hw1.api.model.ModelRequest;
+import tqs.hw1.api.model.ResponseData;
 import tqs.hw1.api.controller.CovidController;
 
 
@@ -38,15 +39,12 @@ public class C_ControllerTest_withMockService {
     @Test
     void getDataFromApiTest() throws Exception {
 
-        CovidData data = new CovidData();
+        ModelRequest data = new ModelRequest();
         data.setCountry("AFG");
-        JSONObject jsonObject = null;
-        try {
-            jsonObject = new JSONObject("{\"data\":\"somedata\",\"more\":\"data\"}");
-        }catch (JSONException err){
-            System.err.println("Error: "+ err.toString());
-        }
-        when( service.getData(Mockito.any()) ).thenReturn( jsonObject);
+        ResponseData response = new ResponseData();
+        response.setDeaths("10000");
+        
+        when( service.getData(Mockito.any()) ).thenReturn( response);
 
         mvc.perform(
                 get("/data").contentType(MediaType.APPLICATION_JSON)

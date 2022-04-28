@@ -1,8 +1,8 @@
 package tqs.hw1.api.controller;
 
 
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.json.JSONObject;
 
 //import com.google.gson.JsonObject;
@@ -16,7 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import tqs.hw1.api.exception.APINotRespondingException;
-import tqs.hw1.api.model.CovidData;
+import tqs.hw1.api.model.ModelRequest;
+import tqs.hw1.api.model.ResponseData;
 import tqs.hw1.api.service.CovidService;
 
 import java.io.IOException;
@@ -27,7 +28,7 @@ import java.util.Locale;
 public class CovidRestController {
     String[] countries = Locale.getISOCountries();
     private final CovidService service;
-    private static Logger logger = LogManager.getLogger(CovidRestController.class);
+    private static final Logger logger = LoggerFactory.getLogger(CovidRestController.class);
 
 
     public CovidRestController(CovidService service) {
@@ -37,11 +38,11 @@ public class CovidRestController {
     
 
     @GetMapping("/data")
-    public @ResponseBody JSONObject data(@ModelAttribute("data") @RequestBody CovidData data, Model model) throws IOException, URISyntaxException, APINotRespondingException {
+    public @ResponseBody ResponseData data(@ModelAttribute("data") @RequestBody ModelRequest data, Model model) throws IOException, URISyntaxException, APINotRespondingException {
         logger.debug("Post data");
         //System.out.println(data.getDate());
         
-        JSONObject response = service.getData(data);
+        ResponseData response = service.getData(data);
         logger.debug("response: ",response);
         //return response.getJSONArray("data").getJSONObject(0).getJSONObject("region").toString();
         return response;
