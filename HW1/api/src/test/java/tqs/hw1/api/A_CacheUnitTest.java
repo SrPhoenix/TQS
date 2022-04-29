@@ -14,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import tqs.hw1.api.service.Cache;
 import tqs.hw1.api.model.ModelRequest;
 import tqs.hw1.api.model.ResponseData;
+import tqs.hw1.api.model.ResponseDataArray;
 
 
 public class A_CacheUnitTest {
@@ -27,11 +28,15 @@ public class A_CacheUnitTest {
         assertEquals(c.getCacheKeySet().size(), 0);
 
         ResponseData response = new ResponseData();
-        response.setIso("PRT");
+        response.getRegion().setIso("PRT");
+
+        ResponseDataArray array = new ResponseDataArray();
+        array.add(response);
+        
         ModelRequest data = new ModelRequest();
         ModelRequest data2 = new ModelRequest();
         data2.setCity_name("Aveiro");
-        c.put(data, response);
+        c.put(data, array);
         
         assertEquals( response, c.get(data));
         assertEquals(null, c.get(data2) );     
@@ -44,9 +49,13 @@ public class A_CacheUnitTest {
         try {
             ResponseData response = new ResponseData();
             response.setLast_update("Ontem");
+
+            ResponseDataArray array = new ResponseDataArray();
+            array.add(response);
+
             ModelRequest data5 = new ModelRequest();
             data5.setCity_name("canede");
-            c.put(data5, response);
+            c.put(data5, array);
             assertFalse(c.hasExpired(data5));
 			Thread.sleep(TimeUnit.MINUTES.toMillis(3));
             assertTrue(c.hasExpired(data5));
@@ -61,9 +70,13 @@ public class A_CacheUnitTest {
     void testDeleteData() {
         ResponseData response = new ResponseData();
         response.setConfirmed("1000");
+
+        ResponseDataArray array = new ResponseDataArray();
+        array.add(response);
+
         ModelRequest data6 = new ModelRequest();
         data6.setCity_name("espinho");
-        c.put(data6, response);
+        c.put(data6, array);
         
         assertEquals(response, c.get(data6));
 
@@ -77,9 +90,14 @@ public class A_CacheUnitTest {
     void testScheduleCleaningCache() {
         ModelRequest data3 = new ModelRequest();
         data3.setCity_name("Ovar");
+        
         ResponseData response = new ResponseData();
-        response.setDeaths("10000");
-        c.put(data3, response);
+        response.setDeaths_diff(10000);
+
+        ResponseDataArray array = new ResponseDataArray();
+        array.add(response);
+
+        c.put(data3, array);
         c.cleanExpiredCachedData();
         Set<ModelRequest> keys= c.getCacheKeySet();
         assertEquals(1, keys.size());
@@ -92,10 +110,14 @@ public class A_CacheUnitTest {
     public void TestGetNonExpiredData(){
         try {
             ResponseData response = new ResponseData();
-            response.setName("Porto");
+            response.setRecovered(30);
+
+            ResponseDataArray array = new ResponseDataArray();
+            array.add(response);
+            
             ModelRequest data4 = new ModelRequest();
             data4.setCity_name("Porto");
-            c.put(data4, response);
+            c.put(data4, array);
 			Thread.sleep(TimeUnit.MINUTES.toMillis(2));
             assertEquals(response, c.get(data4));
 		}

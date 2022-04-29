@@ -1,5 +1,7 @@
 package tqs.hw1.api.model;
 
+import java.util.List;
+
 public class ResponseData {
     private String date;
     private int confirmed_diff;
@@ -10,18 +12,31 @@ public class ResponseData {
     private double fatality_rate;
     private String last_update;
     private long active;
-    private String iso;
-    private String province;
-    private String[] cities;
-    private String name;
-    private String lat;
-    private String lon;
+    private Region region;
     private String confirmed;
     private String deaths;
+
+    public String getConfirmed() {
+        return this.confirmed;
+    }
+
+    public void setConfirmed(String confirmed) {
+        this.confirmed = confirmed;
+    }
+
+    public String getDeaths() {
+        return this.deaths;
+    }
+
+    public void setDeaths(String deaths) {
+        this.deaths = deaths;
+    }
 
 
     public ResponseData() {
     }
+
+
 
     public String getDate() {
         return this.date;
@@ -95,68 +110,12 @@ public class ResponseData {
         this.active = active;
     }
 
-    public String getIso() {
-        return this.iso;
+    public Region getRegion() {
+        return this.region;
     }
 
-    public void setIso(String iso) {
-        this.iso = iso;
-    }
-
-    public String getProvince() {
-        return this.province;
-    }
-
-    public void setProvince(String province) {
-        this.province = province;
-    }
-
-    public String[] getCities() {
-        return this.cities;
-    }
-
-    public void setCities(String[] cities) {
-        this.cities = cities;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLat() {
-        return this.lat;
-    }
-
-    public void setLat(String lat) {
-        this.lat = lat;
-    }
-
-    public String getLon() {
-        return this.lon;
-    }
-
-    public void setLon(String lon) {
-        this.lon = lon;
-    }
-
-    public String getConfirmed() {
-        return this.confirmed;
-    }
-
-    public void setConfirmed(String confirmed) {
-        this.confirmed = confirmed;
-    }
-
-    public String getDeaths() {
-        return this.deaths;
-    }
-
-    public void setDeaths(String deaths) {
-        this.deaths = deaths;
+    public void setRegion(Region region) {
+        this.region = region;
     }
 
     public ResponseData date(String date) {
@@ -204,43 +163,8 @@ public class ResponseData {
         return this;
     }
 
-    public ResponseData iso(String iso) {
-        setIso(iso);
-        return this;
-    }
-
-    public ResponseData province(String province) {
-        setProvince(province);
-        return this;
-    }
-
-    public ResponseData cities(String[] cities) {
-        setCities(cities);
-        return this;
-    }
-
-    public ResponseData name(String name) {
-        setName(name);
-        return this;
-    }
-
-    public ResponseData lat(String lat) {
-        setLat(lat);
-        return this;
-    }
-
-    public ResponseData lon(String lon) {
-        setLon(lon);
-        return this;
-    }
-
-    public ResponseData confirmed(String confirmed) {
-        setConfirmed(confirmed);
-        return this;
-    }
-
-    public ResponseData deaths(String deaths) {
-        setDeaths(deaths);
+    public ResponseData region(Region region) {
+        setRegion(region);
         return this;
     }
 
@@ -257,18 +181,14 @@ public class ResponseData {
             ", fatality_rate='" + getFatality_rate() + "'" +
             ", last_update='" + getLast_update() + "'" +
             ", active='" + getActive() + "'" +
-            ", iso='" + getIso() + "'" +
-            ", province='" + getProvince() + "'" +
-            ", cities='" + getCities() + "'" +
-            ", name='" + getName() + "'" +
-            ", lat='" + getLat() + "'" +
-            ", lon='" + getLon() + "'" +
-            ", confirmed='" + getConfirmed() + "'" +
-            ", deaths='" + getDeaths() + "'" +
+            ", region='" + getRegion() + "'" +
             "}";
     }
 
 
 
 
+
+
 }
+    

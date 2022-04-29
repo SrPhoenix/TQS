@@ -20,6 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import tqs.hw1.api.service.CovidService;
 import tqs.hw1.api.model.ModelRequest;
 import tqs.hw1.api.model.ResponseData;
+import tqs.hw1.api.model.ResponseDataArray;
 import tqs.hw1.api.controller.CovidController;
 
 
@@ -42,9 +43,12 @@ public class C_ControllerTest_withMockService {
         ModelRequest data = new ModelRequest();
         data.setCountry("AFG");
         ResponseData response = new ResponseData();
-        response.setDeaths("10000");
+        response.setDeaths_diff(10000);
+
+        ResponseDataArray array = new ResponseDataArray();
+        array.add(response);
         
-        when( service.getData(Mockito.any()) ).thenReturn( response);
+        when( service.getData(Mockito.any()) ).thenReturn( array);
 
         mvc.perform(
                 get("/data").contentType(MediaType.APPLICATION_JSON)

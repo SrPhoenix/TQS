@@ -17,11 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import tqs.hw1.api.exception.APINotRespondingException;
 import tqs.hw1.api.model.ModelRequest;
-import tqs.hw1.api.model.ResponseData;
+import tqs.hw1.api.model.ResponseDataArray;
 import tqs.hw1.api.service.CovidService;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.Arrays;
 import java.util.Locale;
 
 @RestController
@@ -38,12 +39,12 @@ public class CovidRestController {
     
 
     @GetMapping("/data")
-    public @ResponseBody ResponseData data(@ModelAttribute("data") @RequestBody ModelRequest data, Model model) throws IOException, URISyntaxException, APINotRespondingException {
+    public ResponseDataArray data(@ModelAttribute("data") @RequestBody ModelRequest data, Model model) throws IOException, URISyntaxException, APINotRespondingException {
         logger.debug("Post data");
         //System.out.println(data.getDate());
         
-        ResponseData response = service.getData(data);
-        logger.debug("response: ",response);
+        ResponseDataArray response = service.getData(data);
+        logger.debug("response: ",Arrays.asList(response));
         //return response.getJSONArray("data").getJSONObject(0).getJSONObject("region").toString();
         return response;
     }

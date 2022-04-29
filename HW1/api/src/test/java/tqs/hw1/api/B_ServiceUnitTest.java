@@ -23,6 +23,7 @@ import tqs.hw1.api.service.CovidService;
 import tqs.hw1.api.exception.APINotRespondingException;
 import tqs.hw1.api.model.ModelRequest;
 import tqs.hw1.api.model.ResponseData;
+import tqs.hw1.api.model.ResponseDataArray;
 
 @ExtendWith(MockitoExtension.class)
 public class B_ServiceUnitTest {
@@ -41,15 +42,19 @@ public class B_ServiceUnitTest {
         data.setCity_name("Aveiro");
 
         ResponseData response = new ResponseData();
-        response.setDeaths("10000");
+        response.setDeaths_diff(10000);
+
+        ResponseDataArray array = new ResponseDataArray();
+        array.add(response);
+        
 
         assertNotEquals(c, null);
 
-        Mockito.when(c.get(data)).thenReturn(response);
+        Mockito.when(c.get(data)).thenReturn(array);
 
 
 
-        assertEquals(service.getData(data), response);
+        assertEquals(service.getData(data), array);
 
         Mockito.verify(c, times(1)).get(data);
 
@@ -62,9 +67,9 @@ public class B_ServiceUnitTest {
         Mockito.when(c.get(Mockito.any())).thenReturn(null);
 
         data.setCountry("AFG");
-        ResponseData[] response = service.getData(data);
-        assertTrue(response.length > 0);
-        assertEquals("AFG", response[0].getIso());
+        ResponseDataArray response = service.getData(data);
+        assertTrue(response.size() > 0);
+        assertEquals("AFG", response.get(0).getRegion().getIso());
         Mockito.verify(c, times(1)).get(Mockito.any());
 
     }

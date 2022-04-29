@@ -10,10 +10,15 @@ import org.springframework.stereotype.Service;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 import tqs.hw1.api.exception.APINotRespondingException;
 import tqs.hw1.api.model.ModelRequest;
 import tqs.hw1.api.model.ResponseData;
+import tqs.hw1.api.model.ResponseDataArray;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,8 +31,8 @@ public class CovidService {
     @Autowired
     Cache cache;
 
-    public ResponseData getData(ModelRequest data) throws IOException, URISyntaxException, APINotRespondingException{
-        ResponseData response = cache.get(data);
+    public ResponseDataArray getData(ModelRequest data) throws IOException, URISyntaxException, APINotRespondingException{
+        ResponseDataArray response = cache.get(data);
         if(response==null){
             logger.info("Get Data from Api");
             response = request(data.getDate(),data.getRegion_name(),data.getCountry(),data.getCity_name()); 
@@ -39,7 +44,7 @@ public class CovidService {
         
     }
 
-    private ResponseData request(String date, String region, String country, String city) throws URISyntaxException, APINotRespondingException , IOException{
+    private ResponseDataArray request(String date, String region, String country, String city) throws URISyntaxException, APINotRespondingException , IOException{
         StringBuilder url = new StringBuilder("https://covid-19-statistics.p.rapidapi.com/reports?");
         if (!date.equals(""))
             url.append("date="+date);
@@ -57,13 +62,17 @@ public class CovidService {
             .addHeader("X-RapidAPI-Host", "covid-19-statistics.p.rapidapi.com")
             .addHeader("X-RapidAPI-Key", "54a04285f3msh775e05c8199e3d1p10dee3jsn18132b791694")
             .build();
-
-        Response response = client.newCall(request).execute();
-        logger.debug("Response is Successful: " + response.isSuccessful());
-        logger.debug("Response body: "+ response.body().toString());
-
-        ResponseData result = convertStringToResponseData(response.body().toString());
-        logger.debug("result: |"+result.toString()+"|");
+            Response response = null;
+            try {
+                response = client.newCall(request).execute();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        logger.info("Response is Successful: " + response.isSuccessful());
+        String responseStr = response.body().string();
+        logger.info("Response body: "+ responseStr);
+        ResponseDataArray result = convertToResponseData(responseStr);
+        //logger.info("result: |"+result.toString()+"|");
 
         if (result.toString()!=null){
             logger.info("plus hit");
@@ -75,17 +84,24 @@ public class CovidService {
             logger.info("plus miss");
 
         }
-
-        return result;
+        
+        return result; 
+    
     }
 
-    public ResponseData convertStringToResponseData(String data){
-        logger.info("converting response to POJO");
+    public ResponseDataArray convertToResponseData(String response) {
+        logger.info("converting to POJO");
+        logger.info("JSONObject: " + response);
+
+
+
         GsonBuilder builder = new GsonBuilder(); 
-        builder.setPrettyPrinting(); 
-        
+        builder.setPrettyPrinting();
         Gson gson = builder.create(); 
-        ResponseData result = gson.fromJson(data, ResponseData.class); 
+
+        ResponseDataArray result = gson.fromJson(response, ResponseDataArray.class); 
+        
+
         
         return result;
     }
