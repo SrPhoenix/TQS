@@ -1,6 +1,5 @@
 package tqs.hw1.api.model;
 
-import java.util.List;
 
 public class ResponseData {
     private String date;

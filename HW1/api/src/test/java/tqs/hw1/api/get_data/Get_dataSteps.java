@@ -2,7 +2,6 @@ package tqs.hw1.api.get_data;
 
  
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.springframework.beans.factory.annotation.Autowired;
 

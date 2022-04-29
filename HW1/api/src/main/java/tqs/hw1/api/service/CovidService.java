@@ -10,16 +10,11 @@ import org.springframework.stereotype.Service;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import okhttp3.ResponseBody;
 import tqs.hw1.api.exception.APINotRespondingException;
 import tqs.hw1.api.model.HitMiss;
 import tqs.hw1.api.model.ModelRequest;
-import tqs.hw1.api.model.ResponseData;
 import tqs.hw1.api.model.ResponseDataArray;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
