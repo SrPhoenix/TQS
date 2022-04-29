@@ -1,4 +1,4 @@
-package tqs.hw1.api.cache;
+package tqs.hw1.api.hitMiss;
 
  
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -17,9 +18,12 @@ import tqs.hw1.api.model.ModelRequest;
 
  
 
-public class CacheSteps {
-	private CovidService service = new CovidService();
+public class HitMissSteps {
+	@Autowired
+	private CovidService service;
+
 	private ModelRequest data = new ModelRequest();
+	
 	HitMiss hitmiss;
  
 

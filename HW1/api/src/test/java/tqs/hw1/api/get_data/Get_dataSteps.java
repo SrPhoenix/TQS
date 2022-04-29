@@ -1,8 +1,10 @@
 package tqs.hw1.api.get_data;
 
  
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+import org.springframework.beans.factory.annotation.Autowired;
 
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -10,10 +12,11 @@ import tqs.hw1.api.service.CovidService;
 import tqs.hw1.api.model.ModelRequest;
  
 public class Get_dataSteps {
-	private CovidService service = new CovidService();
+	@Autowired
+	private CovidService service;
 	private ModelRequest data = new ModelRequest();
 
-	@When("When I search for covid data from  the city {String}, country code {String}, date {String} and Region name {String}")
+	@When("I search for covid data from  the city {string}, country code {string}, date {string} and Region name {string}")
 	public void the_country(final String city,final String country, final String date,final String region) throws Throwable {
 		data.setCity_name(city);
 		data.setCountry(country);
@@ -23,8 +26,9 @@ public class Get_dataSteps {
 	}
 
  
-	@Then("Then data should appear, like for example, the province {String}")
+	@Then("data should appear, like for example, the province {string}")
 	public void the_user_must_get_that_information(final String province) throws Throwable {
-		assertNotEquals(service.getData(data).get(0).getRegion().getProvince() , province);
+		System.out.println(data);
+		assertEquals(service.getData(data).get(0).getRegion().getProvince() , province);
 	}
 }

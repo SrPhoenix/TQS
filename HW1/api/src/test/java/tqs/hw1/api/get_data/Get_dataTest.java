@@ -11,9 +11,9 @@ import static io.cucumber.junit.platform.engine.Constants.GLUE_PROPERTY_NAME;
 
 @Suite
 @IncludeEngines("cucumber")
-@SelectClasspathResource("tqs/hw1/api")
+@SelectClasspathResource("tqs/hw1/api/get_data")
 @ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "pretty")
-@ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "tqs.hw1.api")
+@ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "tqs.hw1.api.get_data")
 public class Get_dataTest {
     
 }
