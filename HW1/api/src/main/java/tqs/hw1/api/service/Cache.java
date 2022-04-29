@@ -33,7 +33,7 @@ public class Cache {
 
     
     public ResponseDataArray get(ModelRequest data){
-        //logger.info("Checking if data {} in cache",data);
+        logger.info("Checking if data {} in cache",data);
         if(ttl.containsKey(data))  {
             logger.info("data is in cache");
             return cache.get(data);
@@ -43,19 +43,19 @@ public class Cache {
         return null;
     }
     public void put(ModelRequest data, ResponseDataArray response){
-        //logger.info("Caching up data {} with the response {}",data,response.toString());
+        logger.info("Caching up data {} with the response {}",data,response.toString());
         cache.put(data,response);
         ttl.put(data, Timestamp.from(Instant.now()));
     }
 
     public void deleteDataFromCache(ModelRequest data) {
-       // logger.info("Deleting data {} from cache", data);
+        logger.info("Deleting data {} from cache", data);
         cache.remove(data);
         ttl.remove(data);
     }
 
     public boolean hasExpired(ModelRequest data) {
-        //logger.info("Checking if data {} is expired", data);
+        logger.info("Checking if data {} is expired", data);
         Date mostRecentExpiredDate = new Date(System.currentTimeMillis() - this.timeToLive * 1000);
         return ttl.get(data).before(mostRecentExpiredDate);
     }
@@ -65,7 +65,7 @@ public class Cache {
         logger.info("Running scheduled method to clean expired cached data");
 
         for (ModelRequest data : cache.keySet()) {
-            //logger.info("Deleting expired data: {}", data);
+            logger.info("Deleting expired data: {}", data);
             if (hasExpired(data))
                 deleteDataFromCache(data);
         }

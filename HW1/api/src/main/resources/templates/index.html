@@ -24,6 +24,11 @@ xmlns:th="http://www.thymeleaf.org">
       <p><input type="text" th:field="*{city_name}" ></p>
         <button type="submit">Submit</button>
     </form>
+    <p></p>
+    <form th:action="@{/hitMiss}">
+      <input type="submit" value="hit/miss info" />
+  </form>
+  
   </body>
 </html>
 

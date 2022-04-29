@@ -12,6 +12,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 import tqs.hw1.api.exception.APINotRespondingException;
+import tqs.hw1.api.model.HitMiss;
 import tqs.hw1.api.model.ModelRequest;
 import tqs.hw1.api.model.ResponseData;
 import tqs.hw1.api.model.ResponseDataArray;
@@ -31,15 +32,25 @@ public class CovidService {
     @Autowired
     Cache cache;
 
+
+    public HitMiss getHitMiss()  {
+        int hit=cache.getHit();
+        int miss= cache.getMiss();
+        return new HitMiss(hit+miss,hit,miss);
+    }
+
     public ResponseDataArray getData(ModelRequest data) throws IOException, URISyntaxException, APINotRespondingException{
         ResponseDataArray response = cache.get(data);
         if(response==null){
             logger.info("Get Data from Api");
+            logger.info("Miss Request");
+            cache.plusMiss();
             response = request(data.getDate(),data.getRegion_name(),data.getCountry(),data.getCity_name()); 
             cache.put(data,response);
             return response;
         }
-        
+        logger.info("Hit Request");
+        cache.plusHit();
         return response;
         
     }
@@ -72,18 +83,6 @@ public class CovidService {
         String responseStr = response.body().string();
         logger.info("Response body: "+ responseStr);
         ResponseDataArray result = convertToResponseData(responseStr);
-        //logger.info("result: |"+result.toString()+"|");
-
-        if (result.toString()!=null){
-            logger.info("plus hit");
-            cache.plusHit();
-
-        }
-        else    {
-            cache.plusMiss();
-            logger.info("plus miss");
-
-        }
         
         return result; 
     

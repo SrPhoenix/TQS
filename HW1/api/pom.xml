@@ -16,6 +16,8 @@
 	<properties>
 		<maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+		<junit-platform-suite.version>1.8.2</junit-platform-suite.version>
+		<junit-jupiter.version>5.8.2</junit-jupiter.version>
 	</properties>
 
 <dependencyManagement>
@@ -27,6 +29,12 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+			<dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit-jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -80,14 +88,22 @@
 		<dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java</artifactId>
-			  <version>7.3.2</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-junit-platform-engine</artifactId>
-			  <version>7.3.2</version>
+            <scope>test</scope>
+        </dependency>
+		<dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-spring</artifactId>
+            <scope>test</scope>
+        </dependency>
+		<dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-suite</artifactId>
+            <version>${junit-platform-suite.version}</version>
             <scope>test</scope>
         </dependency>
 

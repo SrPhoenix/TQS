@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import tqs.hw1.api.exception.APINotRespondingException;
+import tqs.hw1.api.model.HitMiss;
 import tqs.hw1.api.model.ModelRequest;
 import tqs.hw1.api.model.ResponseDataArray;
 import tqs.hw1.api.service.CovidService;
@@ -47,6 +48,15 @@ public class CovidRestController {
         logger.debug("response: ",Arrays.asList(response));
         //return response.getJSONArray("data").getJSONObject(0).getJSONObject("region").toString();
         return response;
+    }
+
+    @GetMapping("/hitMiss")
+    public HitMiss hitMiss() {
+        logger.debug("Post data");
+        //System.out.println(data.getDate());
+        
+        return service.getHitMiss();
+        //return response.getJSONArray("data").getJSONObject(0).getJSONObject("region").toString();
     }
 
 /*     @PostMapping("/data")

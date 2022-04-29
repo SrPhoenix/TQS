@@ -12,6 +12,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.io.IOException;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.hasSize;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -33,6 +35,7 @@ public class D_ControllerIT {
                 get("/data?date=&country=AFG&region_name=&city_name=").contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtils.toJson(data)))
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data", hasSize(1)))
                 .andExpect(jsonPath("$.data.[0].region.iso", is("AFG")));
 
             
