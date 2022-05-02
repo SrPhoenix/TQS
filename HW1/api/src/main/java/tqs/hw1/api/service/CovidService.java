@@ -29,9 +29,7 @@ public class CovidService {
 
 
     public HitMiss getHitMiss()  {
-        int hit=cache.getHit();
-        int miss= cache.getMiss();
-        return new HitMiss(hit+miss,hit,miss);
+        return cache.getHitMiss();
     }
 
     public ResponseDataArray getData(ModelRequest data) throws IOException, URISyntaxException, APINotRespondingException{
@@ -99,15 +97,4 @@ public class CovidService {
         
     }
 
-
-    public int getHit(){
-        return cache.getHit();
-    }
-
-    public int getMiss(){
-        return cache.getMiss();
-    }
-    public int getCountOfRequest(){
-        return cache.getCountOfRequest();
-    }
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import tqs.hw1.api.model.HitMiss;
 import tqs.hw1.api.model.ModelRequest;
 import tqs.hw1.api.model.ResponseDataArray;
 
@@ -18,8 +19,7 @@ public class Cache {
     private HashMap<ModelRequest, ResponseDataArray> cache = new HashMap<>();
     private HashMap<ModelRequest, Timestamp> ttl = new HashMap<>();
     private static final Logger logger = LoggerFactory.getLogger(Cache.class);
-    private int miss;
-    private int hit;
+    private HitMiss hitMiss = new HitMiss();
     
     private int timeToLive; // in seconds
 
@@ -77,24 +77,18 @@ public class Cache {
     }
 
     public void plusMiss(){
-        miss++;
-        logger.info("Number of missing requests: {}", miss);
+        hitMiss.plusMiss();
+        logger.info("Number of missing requests: {}", hitMiss.getMiss());
     }
 
     public void plusHit(){
-        hit++;
-        logger.info("Number of hit requests: {}", hit);
+        hitMiss.plusHit();
+
+        logger.info("Number of hit requests: {}", hitMiss.getHit());
 
     }
 
-    public int getHit(){
-        return hit;
-    }
-
-    public int getMiss(){
-        return miss;
-    }
-    public int getCountOfRequest(){
-        return hit+miss;
+    public HitMiss getHitMiss(){
+        return hitMiss;
     }
 }

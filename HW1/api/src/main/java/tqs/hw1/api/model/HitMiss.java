@@ -1,26 +1,21 @@
 package tqs.hw1.api.model;
 
 public class HitMiss {
-    private int total;
     private int hit;
     private int miss;
 
     public HitMiss() {
     }
 
-    public HitMiss(int total, int hit, int miss) {
-        this.total = total;
+    public HitMiss( int hit, int miss) {
         this.hit = hit;
         this.miss = miss;
     }
 
     public int getTotal() {
-        return this.total;
+        return this.hit+miss;
     }
 
-    public void setTotal(int total) {
-        this.total = total;
-    }
 
     public int getHit() {
         return this.hit;
@@ -38,6 +33,12 @@ public class HitMiss {
         this.miss = miss;
     }
 
+    public void plusHit() {
+        hit++;
+    }
+    public void plusMiss() {
+        miss++;
+    }
 
 
     @Override
