@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import tqs.hw1.api.service.Cache;
 import tqs.hw1.api.model.ModelRequest;
+import tqs.hw1.api.model.Region;
 import tqs.hw1.api.model.ResponseData;
 import tqs.hw1.api.model.ResponseDataArray;
 
@@ -26,7 +27,9 @@ public class A_CacheUnitTest {
         assertEquals(c.getCacheKeySet().size(), 0);
 
         ResponseData response = new ResponseData();
-        response.getRegion().setIso("PRT");
+        Region region  = new Region();
+        region.setIso("PRT");
+        response.setRegion(region);
 
         ResponseDataArray array = new ResponseDataArray();
         array.add(response);
@@ -36,7 +39,7 @@ public class A_CacheUnitTest {
         data2.setCity_name("Aveiro");
         c.put(data, array);
         
-        assertEquals( response, c.get(data));
+        assertEquals( array, c.get(data));
         assertEquals(null, c.get(data2) );     
         assertEquals(1, c.getCacheKeySet().size() );
 
