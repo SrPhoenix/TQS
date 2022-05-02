@@ -74,9 +74,9 @@ public class CovidService {
             } catch (IOException e) {
                 logger.error("context",e.getMessage());;
             }
-        logger.info("Response is Successful: " + response.isSuccessful());
+        logger.info("Response is Successful: " , response.isSuccessful());
         String responseStr = response.body().string();
-        logger.info("Response body: "+ responseStr);
+        logger.info("Response body: ", responseStr);
         ResponseDataArray result = convertToResponseData(responseStr);
         
         return result; 
@@ -85,7 +85,7 @@ public class CovidService {
 
     public ResponseDataArray convertToResponseData(String response) {
         logger.info("converting to POJO");
-        logger.info("JSONObject: " + response);
+        logger.info("JSONObject: " , response);
 
 
 
