@@ -128,6 +128,27 @@ public class A_CacheUnitTest {
               
     }
 
+    @Test
+    void missHitTest() {
+
+
+        assertEquals(0, c.getHitMiss().getMiss());
+        assertEquals(0, c.getHitMiss().getHit());
+        assertEquals(0, c.getHitMiss().getTotal());
+
+        c.plusHit();
+        assertEquals(0, c.getHitMiss().getMiss());
+        assertEquals(1, c.getHitMiss().getHit());
+        assertEquals(1, c.getHitMiss().getTotal());
+
+        c.plusMiss();
+
+        assertEquals(1, c.getHitMiss().getMiss());
+        assertEquals(1, c.getHitMiss().getHit());
+        assertEquals(2, c.getHitMiss().getTotal());
+
+    }
+
 
 
 

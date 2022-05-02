@@ -1,8 +1,8 @@
 package tqs.hw1.api.model;
 
 public class HitMiss {
-    private int hit;
-    private int miss;
+    private int hit = 0;
+    private int miss = 0;
 
     public HitMiss() {
     }

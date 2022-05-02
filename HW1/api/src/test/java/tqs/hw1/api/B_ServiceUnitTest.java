@@ -72,39 +72,7 @@ public class B_ServiceUnitTest {
 
     }
 
-    @Test
-    void missTest() throws IOException, URISyntaxException, APINotRespondingException {
-        ModelRequest data = new ModelRequest();
-        Mockito.when(c.get(Mockito.any())).thenReturn(null);
-        Mockito.when(c.getHitMiss().getHit()).thenReturn(0);
-        Mockito.when(c.getHitMiss().getMiss()).thenReturn(1);
 
-
-        data.setCountry("AFG");
-        service.getData(data);
-        HitMiss hitmiss = service.getHitMiss();
-
-        assertEquals(1, hitmiss.getMiss());
-        assertEquals(0, hitmiss.getHit());
-        assertEquals(1, hitmiss.getTotal());
-    }
-
-    @Test
-    void hitTest() throws IOException, URISyntaxException, APINotRespondingException {
-        ResponseDataArray array = new ResponseDataArray();
-        ModelRequest data = new ModelRequest();
-        Mockito.when(c.get(Mockito.any())).thenReturn(array);
-        Mockito.when(c.getHitMiss().getHit()).thenReturn(1);
-        Mockito.when(c.getHitMiss().getMiss()).thenReturn(0);
-
-        data.setCountry("AFG");
-        service.getData(data);
-        service.getData(data);
-        HitMiss hitmiss = service.getHitMiss();
-        assertEquals(0, hitmiss.getMiss());
-        assertEquals(1, hitmiss.getHit());
-        assertEquals(1, hitmiss.getTotal());
-    }
 
 
 } 
