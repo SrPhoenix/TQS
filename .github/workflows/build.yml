@@ -1,6 +1,3 @@
-defaults:
-    run:
-      working-directory: HW1/api
 name: Build
 on:
   push:
@@ -8,6 +5,9 @@ on:
       - master
   pull_request:
     types: [opened, synchronize, reopened]
+defaults:
+  run:
+    working-directory: HW1/api
 jobs:
   build:
     name: Build
