@@ -1,4 +1,4 @@
-package tqs.hw1.api.hitMiss;
+/* package tqs.hw1.api.hitMiss;
 
 
 import org.junit.platform.suite.api.ConfigurationParameter;
@@ -20,3 +20,4 @@ public class HitMissTest {
 // given some values then return data 
 
 
+ */
