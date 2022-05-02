@@ -76,7 +76,7 @@ public class A_CacheUnitTest {
         data6.setCity_name("espinho");
         c.put(data6, array);
         
-        assertEquals(response, c.get(data6));
+        assertEquals(array, c.get(data6));
 
         c.deleteDataFromCache(data6);
         
@@ -117,7 +117,7 @@ public class A_CacheUnitTest {
             data4.setCity_name("Porto");
             c.put(data4, array);
 			Thread.sleep(TimeUnit.MINUTES.toMillis(2));
-            assertEquals(response, c.get(data4));
+            assertEquals(array, c.get(data4));
 		}
         catch(InterruptedException e) {
 			Thread.currentThread().interrupt();
