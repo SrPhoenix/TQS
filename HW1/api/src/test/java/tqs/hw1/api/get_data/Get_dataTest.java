@@ -1,4 +1,4 @@
- package tqs.hw1.api.get_data;
+/*  package tqs.hw1.api.get_data;
 
 
 import org.junit.platform.suite.api.ConfigurationParameter;
@@ -17,4 +17,4 @@ import static io.cucumber.junit.platform.engine.Constants.GLUE_PROPERTY_NAME;
 public class Get_dataTest {
     
 }
-// given some values then return data 
+// given some values then return data  */
