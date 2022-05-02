@@ -72,7 +72,7 @@ public class CovidService {
             try {
                 response = client.newCall(request).execute();
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error("context",e.getMessage());;
             }
         logger.info("Response is Successful: " + response.isSuccessful());
         String responseStr = response.body().string();
