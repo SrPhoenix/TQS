@@ -8,17 +8,32 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import tqs.hw1.api.exception.APINotRespondingException;
+import tqs.hw1.api.model.HitMiss;
 import tqs.hw1.api.model.ModelRequest;
+import tqs.hw1.api.model.ResponseDataArray;
+import tqs.hw1.api.service.CovidService;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.Locale;
 
 @Controller
 public class CovidController {
     String[] countries = Locale.getISOCountries();
+    private final CovidService service;
+
     private static final Logger logger = LoggerFactory.getLogger(CovidController.class);
 
+
+    public CovidController(CovidService service) {
+        this.service=service;
+    }
 
 	@GetMapping("/")
     public String index(Model model) {
@@ -34,6 +49,26 @@ public class CovidController {
         model.addAttribute("countries", countries_);
         model.addAttribute("data", new ModelRequest());
         return "index";
+    }
+
+    @GetMapping("/data")
+    public @ResponseBody ResponseDataArray data(@ModelAttribute("data") @RequestBody ModelRequest data, Model model) throws IOException, URISyntaxException, APINotRespondingException {
+        logger.debug("Post data");
+        //System.out.println(data.getDate());
+        
+        ResponseDataArray response = service.getData(data);
+        logger.debug("response: ",Arrays.asList(response));
+        //return response.getJSONArray("data").getJSONObject(0).getJSONObject("region").toString();
+        return response;
+    }
+
+    @GetMapping("/hitMiss")
+    public @ResponseBody HitMiss hitMiss() {
+        logger.debug("Post data");
+        //System.out.println(data.getDate());
+        
+        return service.getHitMiss();
+        //return response.getJSONArray("data").getJSONObject(0).getJSONObject("region").toString();
     }
 
 

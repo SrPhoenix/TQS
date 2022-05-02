@@ -24,10 +24,10 @@ import tqs.hw1.api.model.ModelRequest;
 import tqs.hw1.api.model.Region;
 import tqs.hw1.api.model.ResponseData;
 import tqs.hw1.api.model.ResponseDataArray;
-import tqs.hw1.api.controller.CovidRestController;
+import tqs.hw1.api.controller.CovidController;
 
 
-@WebMvcTest(CovidRestController.class)
+@WebMvcTest(CovidController.class)
 public class C_ControllerTest_withMockService {
     @Autowired
     private MockMvc mvc;    //entry point to the web framework

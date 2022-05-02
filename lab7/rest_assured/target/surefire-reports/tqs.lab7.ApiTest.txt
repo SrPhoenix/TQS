@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
-Test set: CucumberTest
+Test set: tqs.lab7.ApiTest
 -------------------------------------------------------------------------------
-Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.225 s - in CucumberTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.57 s - in tqs.lab7.ApiTest
