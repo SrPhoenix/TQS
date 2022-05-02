@@ -60,7 +60,7 @@ public class CovidService {
             url.append("&iso="+country);
         if (!city.equals(""))
             url.append("&city_name="+city);
-        logger.info("url: " + url.toString());
+        logger.info("url: ", url.toString());
 
         Request request = new Request.Builder()
             .url(url.toString())
@@ -93,11 +93,10 @@ public class CovidService {
         builder.setPrettyPrinting();
         Gson gson = builder.create(); 
 
-        ResponseDataArray result = gson.fromJson(response, ResponseDataArray.class); 
+        return gson.fromJson(response, ResponseDataArray.class); 
         
 
         
-        return result;
     }
 
 
