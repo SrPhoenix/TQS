@@ -22,7 +22,7 @@
 		<swagger.version>2.9.2</swagger.version>
 		<sonar.organization>srphoenix</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
-		<webdrivermanager.version>5.1.0</webdrivermanager.version>
+		<!-- <webdrivermanager.version>5.1.0</webdrivermanager.version> -->
 	</properties>
 
 <dependencyManagement>
@@ -144,32 +144,32 @@
 		<dependency>
 			<groupId>io.cucumber</groupId>
 			<artifactId>cucumber-java</artifactId>
-			<version>7.2.3</version>
+			<version>${cucumber.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>io.cucumber</groupId>
 			<artifactId>cucumber-junit-platform-engine</artifactId>
-			<version>7.2.3</version>
+			<version>${cucumber.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-spring</artifactId>
-			<version>7.2.3</version>
+			<version>${cucumber.version}</version>
             <scope>test</scope>
         </dependency>
 		<dependency>
 			<groupId>io.cucumber</groupId>
 			<artifactId>cucumber-junit</artifactId>
-			<version>7.3.3</version>
+			<version>${cucumber.version}</version>
 			<scope>test</scope>
 		</dependency>
 
 
 		<!-- Selenium-->
 
-		<dependency>
+		<!-- <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>3.11.0</version>
@@ -180,7 +180,7 @@
             <artifactId>webdrivermanager</artifactId>
             <version>${webdrivermanager.version}</version>
             <scope>test</scope>
-        </dependency>
+        </dependency> -->
 
 		
 

@@ -5,8 +5,12 @@ xmlns:th="http://www.thymeleaf.org">
     <title>Covid Api</title> 
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="index.css">
   </head>
   <body>
+    <div class="container">
     <h1>Covid Api</h1>
     <form th:action="@{/data}" method="GET" th:object="${data}" action="#">
       <h2>Parameters (Opcional)</h2>
@@ -28,6 +32,7 @@ xmlns:th="http://www.thymeleaf.org">
     <form th:action="@{/hitMiss}">
       <input type="submit" value="hit/miss info" />
   </form>
+</div>
   
   </body>
 </html>
