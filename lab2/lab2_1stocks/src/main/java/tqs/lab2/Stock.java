@@ -1,5 +1,5 @@
 package tqs.lab2;
-
+//completed
 public class Stock {
     private String label;
     private int quantity;
