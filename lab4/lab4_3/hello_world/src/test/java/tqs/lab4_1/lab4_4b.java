@@ -33,17 +33,10 @@ import io.github.bonigarcia.seljup.SeleniumJupiter;
 @ExtendWith(SeleniumJupiter.class)
 public class lab4_4b {
   
-  /*   @Arguments("--headless")
-  private FirefoxDriver driver = new FirefoxDriver();
-  private String baseUrl;
-  private boolean acceptNextAlert = true;
-  private StringBuffer verificationErrors = new StringBuffer();
-  
   @BeforeEach
   public void setUp() throws Exception {
     System.setProperty("webdriver.gecko.driver", "/usr/local/bin/geckodriver");
-    driver.manage().timeouts();//.implicitlyWait(30, TimeUnit.SECONDS);
-  }  */
+  }  
 
   @Test
   public void testUntitledTestCase(@DockerBrowser(type = CHROME) @Arguments("--headless")  WebDriver driver) throws Exception {
